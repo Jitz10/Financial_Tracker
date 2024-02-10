@@ -26,6 +26,9 @@ SECRET_KEY = 'django-insecure-d8+=rb22cyqnogfic#wg+h2&uu!ytqxe%17!yc4=@0g!^0ir-(
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# settings.py
+
+STATIC_URL = '/static/'
 
 
 # Application definition
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'Financial_Tracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR,"Templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
