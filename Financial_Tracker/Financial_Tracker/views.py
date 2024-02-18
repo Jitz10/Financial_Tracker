@@ -3,7 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from django.shortcuts import render
-from django.conf import settings  # Import Django settings
+from django.conf import settings
+from service.models import service # Import Django settings
+from django.http import JsonResponse
 
 def homepage(request):
     cars = ['AUDI', 'BMW', 'FORD', 'TESLA', 'JAGUAR', 'MERCEDES']
@@ -36,3 +38,22 @@ def homepage(request):
 def func(pct, allvalues):
     absolute = int(pct / 100.*np.sum(allvalues))
     return "{:.1f}%\n({:d} g)".format(pct, absolute)
+
+def tp(request):
+    service_data = service.objects.all().order_by('-service_title')
+    data = {
+        "s_data": service_data,
+    }
+    return render(request, "tp.html", data)
+
+def calculate_income_expense(request):
+    income = 3000
+    expense = 2000
+    total = income - expense
+    data = {
+        'income': income,
+        'expense': expense,
+        'balance': total
+    }
+    print(data)
+    return JsonResponse(data)

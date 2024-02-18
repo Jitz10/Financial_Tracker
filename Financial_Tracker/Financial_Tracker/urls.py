@@ -22,5 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('homepage/',views.homepage)
+    path('homepage/',views.homepage),
+    #path('',views.tp),
+    path('', views.calculate_income_expense),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
