@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from django.shortcuts import render
 from django.conf import settings
-from service.models import Service  # Assuming your model is named Service
+from service.models import service  # Assuming your model is named Service
 from django.http import JsonResponse
 from django.db.models import Sum
 
