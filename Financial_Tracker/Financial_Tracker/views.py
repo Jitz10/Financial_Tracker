@@ -4,8 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from django.shortcuts import render
 from django.conf import settings
-from service.models import service # Import Django settings
+from service.models import Service  # Assuming your model is named Service
 from django.http import JsonResponse
+from django.db.models import Sum
 
 def homepage(request):
     cars = ['AUDI', 'BMW', 'FORD', 'TESLA', 'JAGUAR', 'MERCEDES']
@@ -26,8 +27,9 @@ def homepage(request):
     ax.set_title("Customizing pie chart")
     
     # Save the plot
-    plot_path = os.path.join(settings.MEDIA_URL, 'plot.png')
-    fig.savefig(os.path.join(settings.MEDIA_ROOT, 'plot.png'))
+    plot_path = os.path.join(settings.MEDIA_ROOT, 'plot.png')
+    fig.savefig(plot_path)
+    plt.close()  # Close the figure to release resources
     
     # Pass the plot path to the template
     context = {'plot_path': plot_path}
@@ -40,20 +42,29 @@ def func(pct, allvalues):
     return "{:.1f}%\n({:d} g)".format(pct, absolute)
 
 def tp(request):
-    service_data = service.objects.all().order_by('-service_title')
+    service_data = Service.objects.all().order_by('-service_title')  # Update model name
     data = {
         "s_data": service_data,
     }
     return render(request, "tp.html", data)
 
 def calculate_income_expense(request):
-    income = 3000
-    expense = 2000
-    total = income - expense
+    # Querying income and expense data from the database
+    income_query = Service.objects.aggregate(total_income=Sum('income'))
+    expense_query = Service.objects.aggregate(total_expense=Sum('expense'))
+    
+    # Extracting values from the query result
+    income = income_query['total_income'] if income_query['total_income'] is not None else 0
+    expense = expense_query['total_expense'] if expense_query['total_expense'] is not None else 0
+    
+    # Calculating the balance
+    balance = income - expense
+    
+    # Constructing the response data
     data = {
         'income': income,
         'expense': expense,
-        'balance': total
+        'balance': balance
     }
-    print(data)
+    
     return JsonResponse(data)
