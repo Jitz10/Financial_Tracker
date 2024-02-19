@@ -3,10 +3,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.conf import settings
 from service.models import Service  # Assuming your model is named Service
 from django.http import JsonResponse
 from django.db.models import Sum
+=======
+from django.conf import settings  # Import Django settings
+>>>>>>> parent of 7873bf8 (successful connection test1)
 
 def homepage(request):
     cars = ['AUDI', 'BMW', 'FORD', 'TESLA', 'JAGUAR', 'MERCEDES']
@@ -40,6 +44,7 @@ def homepage(request):
 def func(pct, allvalues):
     absolute = int(pct / 100.*np.sum(allvalues))
     return "{:.1f}%\n({:d} g)".format(pct, absolute)
+<<<<<<< HEAD
 
 def tp(request):
     service_data = Service.objects.all().order_by('-service_title')  # Update model name
@@ -68,3 +73,5 @@ def calculate_income_expense(request):
     }
     
     return JsonResponse(data)
+=======
+>>>>>>> parent of 7873bf8 (successful connection test1)
