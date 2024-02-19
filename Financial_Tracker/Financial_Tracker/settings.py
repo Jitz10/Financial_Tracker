@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'Financial_Tracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydata',      # Replace 'your_database_name' with the name of your MySQL database
+        'USER': 'root@localhost',     # Replace 'your_mysql_username' with your MySQL username
+        'PASSWORD': 'E4hpmcr82@', # Replace 'your_mysql_password' with your MySQL password
+        'HOST': 'localhost',               # Replace 'localhost' with the host where your MySQL server is running
+        'PORT': '8000',                    # Replace '3306' with the port number of your MySQL server
     }
 }
 
